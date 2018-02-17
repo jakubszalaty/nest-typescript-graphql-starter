@@ -1,0 +1,7 @@
+type helloPayload {
+    msg: String
+}
+
+type Query {
+    hello: helloPayload
+}
