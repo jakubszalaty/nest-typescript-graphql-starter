@@ -33,5 +33,5 @@ Environments are located in file `.env`.
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
+[MIT license](LICENSE).
 
