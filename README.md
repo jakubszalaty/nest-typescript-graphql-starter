@@ -18,7 +18,7 @@ yarn start
 npm run start
 ```
 
-Open url: http://localhost:9000/graphiql
+Open url: http://localhost:9000/playground
 
 ![](.README/2018-02-17-15-39-30.png)
 

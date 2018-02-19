@@ -1,7 +1,8 @@
 import { Module, MiddlewaresConsumer, NestModule, RequestMethod } from '@nestjs/common'
 import { GraphQLModule, GraphQLFactory } from '@nestjs/graphql'
 
-import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
+import expressPlayground from 'graphql-playground-middleware-express'
+import { graphqlExpress } from 'apollo-server-express'
 import { importSchema } from 'graphql-import'
 
 import { AppController } from './app.controller'
@@ -27,12 +28,12 @@ export class ApplicationModule implements NestModule {
 
         consumer
             .apply(
-                graphiqlExpress({
-                    endpointURL: '/graphql',
+                expressPlayground({
+                    endpoint: '/graphql',
                     subscriptionsEndpoint: process.env.SUBSCRIPTION_ENDPOINT,
                 }),
             )
-            .forRoutes({ path: '/graphiql', method: RequestMethod.GET })
+            .forRoutes({ path: '/playground', method: RequestMethod.GET })
             .apply(
                 graphqlExpress(req => ({
                     schema,
@@ -40,6 +41,7 @@ export class ApplicationModule implements NestModule {
                     context: {
                         ...req,
                     },
+                    tracing: true,
                 })),
             )
             .forRoutes({ path: '/graphql', method: RequestMethod.ALL })
